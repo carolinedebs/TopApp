@@ -49,30 +49,51 @@
 				//for (var i = 0; i < result.feed.entries.length; i++) { 
 					var container = document.getElementById("feed1");
 					var entry = result.feed.entries[0];
-					var div = document.createElement("div");
-					div.appendChild(document.createTextNode(entry.title));
-					container.appendChild(div);
+					var a = document.createElement('a');
+					var linkText = document.createTextNode(entry.title);
+					a.appendChild(linkText);
+					a.title = entry.title;
+					a.href = entry.link;
+					container.appendChild(a);
 				//}
 	        }
 	      });
-			/* The first feed is called "feed2" and in this example, it refers to the ESPN NBA news feed */
+			/* The second feed is called "feed2" and in this example, it refers to the ESPN NBA news feed */
 			var feed2 = new google.feeds.Feed("http://sports.espn.go.com/espn/rss/nba/news");
 			feed2.load(function(result) {
 			if (!result.error) {
 				//for (var i = 0; i < result.feed.entries.length; i++) {
 					var container = document.getElementById("feed2");
 					var entry = result.feed.entries[0];
-					var div = document.createElement("div");
-					div.appendChild(document.createTextNode(entry.title));
-					container.appendChild(div);
+					var a = document.createElement('a');
+					var linkText = document.createTextNode(entry.title);
+					a.appendChild(linkText);
+					a.title = entry.title;
+					a.href = entry.link;
+					container.appendChild(a);
+				//}
+			}
+			
+		});
+			/* The third feed is called "feed3" and in this example, it refers to the Daily Beast news feed */
+			var feed3 = new google.feeds.Feed("http://feeds.feedburner.com/thedailybeast/articles");
+			feed3.load(function(result) {
+			if (!result.error) {
+				//for (var i = 0; i < result.feed.entries.length; i++) {
+					var container = document.getElementById("feed3");
+					var entry = result.feed.entries[0]; // Get the first entry
+					var a = document.createElement('a'); // Create a new link tag for HTML
+					var linkText = document.createTextNode(entry.title); 
+					a.appendChild(linkText);
+					a.title = entry.title;
+					a.href = entry.link;
+					container.appendChild(a);
 				//}
 			}
 		});
 			/* Create more functions to load more feeds here! */
 		}
 		google.setOnLoadCallback(initialize);
-
-
 
 /****** ADDING A TOP SEARCH FROM A WEBPAGE ******/
 	    google.load("feeds", "1");
@@ -136,15 +157,23 @@
 
 		<!-- BEGIN ADDING FEED CONTENT --> 
 		<div class="alert alert-success">
+			<div><b>People Magazine</b></div>
 			<span id="feed1"/>
 		</div>
 
-		<div class="alert alert-success">
+		<div class="alert alert-info">
+			<div><b>ESPN NBA</b></div>
 			<div id="feed2"></div>
 		</div>
 
 		<div class="alert alert-success">
+			<div><b>Search CNN for "election"</b></div>
 			<div id="content"></div>
+		</div>
+
+		<div class="alert alert-info">
+			<div><b>Daily Beast</b></div>
+			<div id="feed3"></div>
 		</div>
 		<!-- END ADDING FEED CONTENT --> 
 	</body>
