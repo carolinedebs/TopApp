@@ -1,0 +1,151 @@
+<!--
+	Keeping Up Application Template by Caroline Debs (contact me at cdebs@stanford.edu)
+	This application allows you to keep up with the most popular news.
+	It takes the top entry in RSS feeds and posts it in a highly readable format.
+-->
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="This application allows you to keep up with the most popular news.">
+		<meta name="author" content="Caroline Debs">
+
+		<!-- App name that appears on the web browser -->
+		<title>Keeping Up</title>
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- Google Fonts (you can import more at https://www.google.com/fonts) -->
+		<link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+
+		<!-- Optional Bootstrap theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="app.js"></script>
+
+
+	<!-- BEGIN LOADING RSS FEEDS
+		 This example loads People Magazine and ESPN NBA news RSS Feeds using this Javascript code below. 
+		 Documentation for Google Feeds is located at this URL: https://developers.google.com/feed/v1/devguide
+	-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+	    google.load("feeds", "1");
+	    function initialize() {
+	    	/* The first feed is called "feed1" and in this example, it refers to the People Magazine RSS feed */
+			var feed1 = new google.feeds.Feed("http://feeds.people.com/people/headlines");
+			/* With the .setNumEntries(num) command, you can specify how many headlines you would like to load */
+			// feed.setNumEntries(10); 
+			feed1.load(function(result) {
+				if (!result.error) {
+				/* Use the for loop if you wish to print out multiple headlines from the source "feed1" */
+				//for (var i = 0; i < result.feed.entries.length; i++) { 
+					var container = document.getElementById("feed1");
+					var entry = result.feed.entries[0];
+					var div = document.createElement("div");
+					div.appendChild(document.createTextNode(entry.title));
+					container.appendChild(div);
+				//}
+	        }
+	      });
+			/* The first feed is called "feed2" and in this example, it refers to the ESPN NBA news feed */
+			var feed2 = new google.feeds.Feed("http://sports.espn.go.com/espn/rss/nba/news");
+			feed2.load(function(result) {
+			if (!result.error) {
+				//for (var i = 0; i < result.feed.entries.length; i++) {
+					var container = document.getElementById("feed2");
+					var entry = result.feed.entries[0];
+					var div = document.createElement("div");
+					div.appendChild(document.createTextNode(entry.title));
+					container.appendChild(div);
+				//}
+			}
+		});
+			/* Create more functions to load more feeds here! */
+		}
+		google.setOnLoadCallback(initialize);
+
+
+
+/****** ADDING A TOP SEARCH FROM A WEBPAGE ******/
+	    google.load("feeds", "1");
+
+		function OnLoad() {
+		  // Query for president feeds on cnn.com
+		  var query = 'site:cnn.com election';
+		  google.feeds.findFeeds(query, findDone);
+		}
+
+		function findDone(result) {
+		  // Make sure we didn't get an error.
+		  if (!result.error) {
+		    // Get content div
+		    var content = document.getElementById('content');
+		    var html = '';
+
+		    // Loop through the results and print out the title of the feed and link to
+		    // the url.
+		    //for (var i = 0; i < result.entries.length; i++) {
+		      var entry = result.entries[0];
+		      html += '<p><a href="/feed/v1/' + entry.url + '">' + entry.title + '</a></p>';
+		    //}
+		    content.innerHTML = html;
+		  }
+		}
+
+		google.setOnLoadCallback(OnLoad);
+	</script>
+	<!-- END LOADING RSS FEEDS -->
+	</head>
+
+	<!--DESIGNING THE UI
+		Now here is the fun part, especially for artists! Design the user interface (UI) of Keeping Up!
+		A really helpful tool is Bootstrap, which allows you to use cool graphics to make your app look professional and legit :) The URL for Bootstrap is: http://getbootstrap.com/getting-started/
+	-->
+	<body>
+		<!-- BEGIN NAVIGATION BAR --> 
+		<nav role="navigation" class="navbar navbar-default">
+	    	<!-- Brand and toggle get grouped for better mobile display -->
+	    	<div class="navbar-header">
+	        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	        </button>
+	        <a href="#" class="navbar-brand">Keeping Up</a>
+	    	</div>
+	    	<!-- Collection of nav links and other content for toggling -->
+	    	<div id="navbarCollapse" class="collapse navbar-collapse">
+	        	<ul class="nav navbar-nav">
+	            	<!--<li><a href="./survey">Survey</a></li>-->
+	        	</ul>
+			    <ul class="nav navbar-nav navbar-right">
+			        <!--<li><a href="#"></a></li>-->
+			    </ul>
+	    	</div>
+		</nav>
+		<!-- END NAVIGATION BAR --> 
+
+		<!-- BEGIN ADDING FEED CONTENT --> 
+		<div class="alert alert-success">
+			<span id="feed1"/>
+		</div>
+
+		<div class="alert alert-success">
+			<div id="feed2"></div>
+		</div>
+
+		<div class="alert alert-success">
+			<div id="content"></div>
+		</div>
+		<!-- END ADDING FEED CONTENT --> 
+	</body>
+</html>
