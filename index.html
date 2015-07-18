@@ -46,15 +46,20 @@
 	<body>
 		<!-- BEGIN NAVIGATION BAR --> 
 		<nav role="navigation" class="navbar navbar-default">
+			
 	    	<!-- Brand and toggle get grouped for better mobile display -->
 	    	<div class="navbar-header">
-	        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+<!-- 	        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
 	            <span class="sr-only">Toggle navigation</span>
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
-	        </button>
-	        <a href="#" class="navbar-brand">Keeping Up</a>
+	        </button> -->
+			
+	        <span class="navbar-brand" style="font-family:Pacifico;font-size:18px;margin-top:-5px"><img src="./media/toplogo.png"></img></span>
+	        <span class="navbar-brand" style="font-family:Pacifico;font-size:18px;margin-left:-25px;color:black"></span>
+
+
 	    	</div>
 	    	<!-- Collection of nav links and other content for toggling -->
 	    	<div id="navbarCollapse" class="collapse navbar-collapse">
@@ -62,6 +67,7 @@
 	            	<!--<li><a href="./survey">Survey</a></li>-->
 	        	</ul>
 			    <ul class="nav navbar-nav navbar-right">
+
 			        <!--<li><a href="#"></a></li>-->
 			    </ul>
 	    	</div>
@@ -69,25 +75,48 @@
 		<!-- END NAVIGATION BAR --> 
 
 		<!-- BEGIN ADDING FEED CONTENT --> 
-		<div id="div1" class="alert alert-success">
-			<div style="font-family: Pacifico; font-size:20px"><b>People Magazine</b></div>
-			<img src="./media/People.ico"><span id="feed1"></img></span>
+		<ul class="alert alert-info" style="margin-top:-20px">
+			<!-- <div style="font-family: Pacifico; font-size:20px"><b></b></div> -->
+			<img id="div0" src="./media/share.png" style="float:right;margin-top:-5px"></img>
+			<img src="./media/People.ico" style="padding-right:10px"><span id="feed1" ></img></span>
+		</ul>
+
+		<div class="alert alert-info" style="margin-top:-20px">
+			<!-- <div style="font-family: Courier New; font-size:20px"><b>ESPN NBA</b></div> -->
+			<img id="div1" src="./media/share.png" style="float:right;margin-top:-5px"></img>
+			<img src="./media/ESPN.ico" style="padding-right:10px"><span id="feed2"></img></span>
 		</div>
 
-		<div class="alert alert-info">
-			<div style="font-family: Courier New; font-size:20px"><b>ESPN NBA</b></div>
-			<div id="feed2"></div>
-		</div>
-
-		<div class="alert alert-success">
+		<!-- <div id="div3" class="alert alert-success">
 			<div style="font-family: Cambria; font-size:20px"><b>Search CNN for "election"</b></div>
 			<div id="content"></div>
+		</div> -->
+
+		<div class="alert alert-info" style="margin-top:-20px">
+			<!-- <div style="font-family: Times New Roman; font-size:20px"><b>Daily Beast</b></div> -->
+			<img id="div2" src="./media/share.png" style="float:right;margin-top:-5px"></img>
+			<img src="./media/DailyBeast.png" style="padding-right:10px"><span id="feed3"></img></span>
 		</div>
 
-		<div class="alert alert-info">
-			<div style="font-family: Times New Roman; font-size:20px"><b>Daily Beast</b></div>
-			<div id="feed3"></div>
+		<div class="alert alert-info" style="margin-top:-20px">
+			<!-- <div style="font-family: Times New Roman; font-size:20px"><b>Daily Beast</b></div> -->
+			<img id="div3" src="./media/share.png" style="float:right;margin-top:-5px"></img>
+			<img src="./media/NYTimes.ico" style="padding-right:10px"><span id="feed4"></img></span>
 		</div>
+
+		<div class="alert alert-info" style="margin-top:-20px">
+			<!-- <div style="font-family: Times New Roman; font-size:20px"><b>Daily Beast</b></div> -->
+			<img id="div4" src="./media/share.png" style="float:right;margin-top:-5px"></img>
+			<img src="./media/NYTimes.ico" style="padding-right:10px"><span id="feed5"></img></span>
+		</div>
+
+		<div class="alert alert-info" style="margin-top:-20px">
+			<!-- <div style="font-family: Times New Roman; font-size:20px"><b>Daily Beast</b></div> -->
+			<img id="div5" src="./media/share.png" style="float:right;margin-top:-5px"></img>
+			<img src="./media/CNN.png" style="padding-right:10px"><span id="feed6"></img></span>
+		</div>
+
+
 		<!-- END ADDING FEED CONTENT --> 
 
 
@@ -105,31 +134,34 @@
 	    	/* The first feed is called "feed1" and in this example, it refers to the People Magazine RSS feed */
 			var feed1 = new google.feeds.Feed("http://feeds.people.com/people/headlines");
 			/* With the .setNumEntries(num) command, you can specify how many headlines you would like to load */
-			// feed.setNumEntries(10); 
+			feed1.setNumEntries(1); 
 			feed1.load(function(result) {
 				if (!result.error) {
 				/* Use the for loop if you wish to print out multiple headlines from the source "feed1" */
-				//for (var i = 0; i < result.feed.entries.length; i++) { 
+				for (var i = 0; i < result.feed.entries.length; i++) { 
 					var container = document.getElementById("feed1");
-					var entry = result.feed.entries[0];
-					feed_entries[feed_entries.length-1] = entry;
+					var entry = result.feed.entries[i];
+					feed_entries[0] = entry;
+
 					var a = document.createElement('a');
 					var linkText = document.createTextNode(entry.title);
 					a.appendChild(linkText);
-					a.title = entry.title;
+					a.title =  entry.title ;
+					console.log(a.title);
 					a.href = entry.link;
 					container.appendChild(a);
-				//}
+				}
 	        }
 	      });
 			/* The second feed is called "feed2" and in this example, it refers to the ESPN NBA news feed */
-			var feed2 = new google.feeds.Feed("http://sports.espn.go.com/espn/rss/nba/news");
+			var feed2 = new google.feeds.Feed("http://sports.espn.go.com/espn/rss/news");
 			feed2.load(function(result) {
 			if (!result.error) {
 				//for (var i = 0; i < result.feed.entries.length; i++) {
 					var container = document.getElementById("feed2");
 					var entry = result.feed.entries[0];
-					feed_entries[feed_entries.length-1] = entry;
+					console.log(entry);
+					feed_entries[1] = entry;
 					var a = document.createElement('a');
 					var linkText = document.createTextNode(entry.title);
 					a.appendChild(linkText);
@@ -147,7 +179,59 @@
 				//for (var i = 0; i < result.feed.entries.length; i++) {
 					var container = document.getElementById("feed3");
 					var entry = result.feed.entries[0]; // Get the first entry
-					feed_entries[feed_entries.length-1] = entry;
+					feed_entries[2] = entry;
+					var a = document.createElement('a'); // Create a new link tag for HTML
+					var linkText = document.createTextNode(entry.title); 
+					a.appendChild(linkText);
+					a.title = entry.title;
+					a.href = entry.link;
+					container.appendChild(a);
+				//}
+			}
+		});
+			/* The third feed is called "feed3" and in this example, it refers to the Daily Beast news feed */
+			var feed4 = new google.feeds.Feed("http://rss.nytimes.com/services/xml/rss/nyt/US.xml");
+			feed4.load(function(result) {
+			if (!result.error) {
+				//for (var i = 0; i < result.feed.entries.length; i++) {
+					var container = document.getElementById("feed4");
+					var entry = result.feed.entries[0]; // Get the first entry
+					feed_entries[3] = entry;
+					console.log(entry);
+					var a = document.createElement('a'); // Create a new link tag for HTML
+					var linkText = document.createTextNode(entry.title); 
+					a.appendChild(linkText);
+					a.title = entry.title;
+					a.href = entry.link;
+					container.appendChild(a);
+				//}
+			}
+		});
+			var feed5 = new google.feeds.Feed("http://rss.nytimes.com/services/xml/rss/nyt/World.xml");
+			feed5.load(function(result) {
+			if (!result.error) {
+				//for (var i = 0; i < result.feed.entries.length; i++) {
+					var container = document.getElementById("feed5");
+					var entry = result.feed.entries[0]; // Get the first entry
+					feed_entries[4] = entry;
+					console.log(entry);
+					var a = document.createElement('a'); // Create a new link tag for HTML
+					var linkText = document.createTextNode(entry.title); 
+					a.appendChild(linkText);
+					a.title = entry.title;
+					a.href = entry.link;
+					container.appendChild(a);
+				//}
+			}
+		});
+		var feed6 = new google.feeds.Feed("http://rss.cnn.com/rss/cnn_topstories.rss");
+			feed6.load(function(result) {
+			if (!result.error) {
+				//for (var i = 0; i < result.feed.entries.length; i++) {
+					var container = document.getElementById("feed6");
+					var entry = result.feed.entries[0]; // Get the first entry
+					feed_entries[5] = entry;
+					console.log(entry);
 					var a = document.createElement('a'); // Create a new link tag for HTML
 					var linkText = document.createTextNode(entry.title); 
 					a.appendChild(linkText);
@@ -161,48 +245,68 @@
 		}
 		google.setOnLoadCallback(initialize);
 
-/****** ADDING A TOP SEARCH FROM A WEBPAGE ******/
-	    google.load("feeds", "1");
+// /****** ADDING A TOP SEARCH FROM A WEBPAGE ******/
+// 	    google.load("feeds", "1");
 
-		function OnLoad() {
-		  // Query for president feeds on cnn.com
-		  var query = 'site:cnn.com election';
-		  google.feeds.findFeeds(query, findDone);
-		}
+// 		function OnLoad() {
+// 		  // Query for president feeds on cnn.com
+// 		  var query = 'site:cnn.com election';
+// 		  google.feeds.findFeeds(query, findDone);
+// 		}
 
-		function findDone(result) {
-		  // Make sure we didn't get an error.
-		  if (!result.error) {
-		    // Get content div
-		    var content = document.getElementById('content');
-		    var html = '';
+// 		function findDone(result) {
+// 		  // Make sure we didn't get an error.
+// 		  if (!result.error) {
+// 		    // Get content div
+// 		    var content = document.getElementById('content');
+// 		    var html = '';
 
-		    // Loop through the results and print out the title of the feed and link to
-		    // the url.
-		    //for (var i = 0; i < result.entries.length; i++) {
-		      var entry = result.entries[0];
-		      feed_entries[feed_entries.length-1] = entry;
-		      html += '<p><a href="/feed/v1/' + entry.url + '">' + entry.title + '</a></p>';
-		    //}
-		    content.innerHTML = html;
-		  }
-		}
+// 		    // Loop through the results and print out the title of the feed and link to
+// 		    // the url.
+// 		    //for (var i = 0; i < result.entries.length; i++) {
+// 		      var entry = result.entries[0];
+// 		      console.log(entry);
+// 		      feed_entries[3] = entry;
+// 		      html += '<p><a href="/feed/v1/' + entry.url + '">' + entry.title + '</a></p>';
+// 		    //}
+// 		    content.innerHTML = html;
+// 		  }
+// 		}
 
-		google.setOnLoadCallback(OnLoad);
+// 		google.setOnLoadCallback(OnLoad);
 
-		document.getElementById("div1").addEventListener("click", function(){
-			alert ("it's working");
-			var text = "Alien Invasion";
+		function shareOmlet(entry) {
+			var text = entry.title;
 	        var rdl = Omlet.createRDL({
-	            noun: "game",
+	            noun: "news article",
 	            displayTitle: text,
-	            displayThumbnailUrl: "https://dhorh0z3k6ro7.cloudfront.net/apps/quikpoll/images/quikpoll.png",
-	            displayText: "I just played Alien Invasion. Tap here to play it too.",         
+	            displayText: String(entry.contentSnippet),       
 	            json: {},
 	            callback: encodeURI(window.location.href)
 	        });
 		    Omlet.setPasteboard(rdl);
 		    Omlet.exit();
+		}
+
+		document.getElementById("div0").addEventListener("click", function() {
+			shareOmlet(feed_entries[0])
+		});
+		document.getElementById("div1").addEventListener("click", function() {
+			shareOmlet(feed_entries[1])
+		});
+		document.getElementById("div2").addEventListener("click", function() {
+			shareOmlet(feed_entries[2])
+		});
+		document.getElementById("div3").addEventListener("click", function() {
+			shareOmlet(feed_entries[3])
+		});
+
+		document.getElementById("div4").addEventListener("click", function() {
+			shareOmlet(feed_entries[4])
+		});
+
+		document.getElementById("div5").addEventListener("click", function() {
+			shareOmlet(feed_entries[5])
 		});
 
 		//$("#feed2").onClick(toOmlet(feed_entries[1]));
